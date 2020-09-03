@@ -1,0 +1,46 @@
+---
+# - name: "[Pantheon] Add ppa inline"
+#   loop:
+#     - ppa:elementary-os/stable 
+#     - ppa:elementary-os/os-patches
+#   loop_control:
+#     loop_var: boxes_ubuntu_desktop_ppa
+#   shell: add-apt-repository --keyserver hkps://keyserver.ubuntu.com:443 {{ boxes_ubuntu_desktop_ppa }}
+- name: fix
+  when: ansible_distribution_release == "disco"
+  set_fact:
+    boxes_ubuntu_desktop_pantheon_ppa_codename: bionic
+
+- name: fix
+  when: ansible_distribution_release != "disco"
+  set_fact:
+    boxes_ubuntu_desktop_pantheon_ppa_codename: "{{ ansible_distribution_release }}"
+
+- name: add ppa
+  apt_repository:
+    repo: "{{ boxes_ubuntu_desktop_pantheon_ppa }}"
+    state: present
+    # codename: "{{ ansible_distribution_release }}"
+    # codename: bionic
+  loop_control:
+    loop_var: boxes_ubuntu_desktop_pantheon_ppa
+  loop:
+    - deb http://ppa.launchpad.net/elementary-os/stable/ubuntu {{ boxes_ubuntu_desktop_pantheon_ppa_codename }} main
+    - deb http://ppa.launchpad.net/elementary-os/os-patches/ubuntu {{ boxes_ubuntu_desktop_pantheon_ppa_codename }} main
+    # - ppa:elementary-os/stable
+    # - ppa:elementary-os/os-patches
+    # - ppa:philip.scott/elementary-tweaks
+
+- name: install pantheon
+  apt:
+    name: "{{ boxes_ubuntu_desktop_package_name }}"
+    state: present
+    install_recommends: true
+  loop_control:
+    loop_var: boxes_ubuntu_desktop_package_name
+  loop:
+    # - elementary-theme
+    # - elementary-icon-theme
+    # - elementary-default-settings
+    - elementary-desktop
+    # - elementary-tweaks

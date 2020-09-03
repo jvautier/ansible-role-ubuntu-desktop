@@ -1,0 +1,19 @@
+---
+- name: uninstall display manager
+  apt:
+    name: "{{ boxes_ubuntu_desktop_displaymanager_uninstall }}"
+    state: absent
+  loop_control:
+    loop_var: boxes_ubuntu_desktop_displaymanager_uninstall
+  loop:
+    # - gnome-session
+    - gdm3
+
+- name: install display manager
+  apt:
+    name: "{{ boxes_ubuntu_desktop_displaymanager_install }}"
+    state: present
+  loop_control:
+    loop_var: boxes_ubuntu_desktop_displaymanager_install
+  loop:
+    - lightdm

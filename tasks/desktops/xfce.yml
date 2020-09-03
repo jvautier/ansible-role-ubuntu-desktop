@@ -1,0 +1,11 @@
+---
+- name: install xfce
+  apt:
+    name: "{{ boxes_ubuntu_desktop_package_name }}"
+    state: present
+    install_recommends: false
+  loop_control:
+    loop_var: boxes_ubuntu_desktop_package_name
+  loop:
+    - xubuntu-desktop
+    - xfce4-goodies
