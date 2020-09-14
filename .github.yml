@@ -1,0 +1,9 @@
+---
+fullname: jvautier/ansible-role-ubuntu-desktop
+description: Install ubuntu-desktop through ansible
+tags:
+  - ansible
+  - ansible-role
+  - ubuntu
+  - ubuntu-desktop
+github: {}
