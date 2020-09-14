@@ -1,4 +1,5 @@
 ---
+# See https://github.com/jvautier/project-cli
 fullname: jvautier/ansible-role-ubuntu-desktop
 description: Install ubuntu-desktop through ansible
 tags:
